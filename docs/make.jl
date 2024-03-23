@@ -9,12 +9,11 @@ makedocs(;
     sitename="Conflux.jl",
     doctest=false,
     format=Documenter.HTML(;
-        edit_link="main",
-        assets=String[],
+        prettyurls = get(ENV, "CI", "false") == "true",
     ),
     pages=[
         "Home" => "index.md",
-        "API Reference" => "API.md",
+        "API Reference" => "reference.md",
     ],
     checkdocs=:all,
 )

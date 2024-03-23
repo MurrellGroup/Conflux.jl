@@ -6,10 +6,7 @@ CurrentModule = Conflux
 
 [![Latest Release](https://img.shields.io/github/release/MurrellGroup/Conflux.jl.svg)](https://github.com/MurrellGroup/Conflux.jl/releases/latest)
 [![MIT license](https://img.shields.io/badge/license-MIT-green.svg)](https://opensource.org/license/MIT)
-[![Documentation](https://img.shields.io/badge/docs-stable-blue.svg)](https://MurrellGroup.github.io/Conflux.jl/stable/)
 [![Documentation](https://img.shields.io/badge/docs-latest-blue.svg)](https://MurrellGroup.github.io/Conflux.jl/dev/)
-[![Status](https://github.com/MurrellGroup/Conflux.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/MurrellGroup/Conflux.jl/actions/workflows/CI.yml?query=branch%3Amain)
-[![Coverage](https://codecov.io/gh/MurrellGroup/Conflux.jl/branch/main/graph/badge.svg)](https://codecov.io/gh/MurrellGroup/Conflux.jl)
 
 Conflux.jl is a toolkit designed to enable data parallelism for [Flux.jl](https://github.com/FluxML/Flux.jl) models by simplifying the process of replicating them across multiple GPUs on a single node, and by leveraging [NCCL.jl](https://github.com/JuliaGPU/NCCL.jl) for efficient inter-GPU communication. This package aims to provide a straightforward and intuitive interface for multi-GPU training, requiring minimal changes to existing code and training loops.
 

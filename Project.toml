@@ -1,7 +1,7 @@
 name = "Conflux"
 uuid = "2703a059-2ab6-41ff-bfd0-de7e7f183509"
 authors = ["Anton Oresten <anton.oresten42@gmail.com>"]
-version = "1.0.0-DEV"
+version = "0.0.1"
 
 [deps]
 CUDA = "052768ef-5323-5732-b1bb-66c8b64840ba"
@@ -10,7 +10,7 @@ NCCL = "3fe64909-d7a1-4096-9b7d-7a0f12cf0f6b"
 cuDNN = "02a925ec-e4fe-4b08-9a7e-0d78e3d38ccd"
 
 [compat]
-CUDA = "4, 5"
+CUDA = "5"
 Flux = "0.14"
 NCCL = "0.1"
 cuDNN = "1"
