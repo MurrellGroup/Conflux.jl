@@ -17,6 +17,14 @@ Conflux.jl is a toolkit designed to enable data parallelism for [Flux.jl](https:
 
 See the documentation for more details, examples, and important caveats.
 
+## Installation
+
+The package can be installed with the Julia package manager. From the Julia REPL, type `]` to enter the Pkg REPL mode and run:
+
+```julia
+pkg> add https://github.com/MurrellGroup/Conflux.jl#main
+```
+
 ## Example usage
 
 ```julia
