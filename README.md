@@ -2,7 +2,6 @@
 
 [![Latest Release](https://img.shields.io/github/release/MurrellGroup/Conflux.jl.svg)](https://github.com/MurrellGroup/Conflux.jl/releases/latest)
 [![MIT license](https://img.shields.io/badge/license-MIT-green.svg)](https://opensource.org/license/MIT)
-[![MIT license](https://img.shields.io/badge/license-MIT-green.svg)](https://opensource.org/license/MIT)
 [![Documentation](https://img.shields.io/badge/docs-stable-blue.svg)](https://MurrellGroup.github.io/Conflux.jl/stable/)
 [![Documentation](https://img.shields.io/badge/docs-latest-blue.svg)](https://MurrellGroup.github.io/Conflux.jl/dev/)
 [![Status](https://github.com/MurrellGroup/Conflux.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/MurrellGroup/Conflux.jl/actions/workflows/CI.yml?query=branch%3Amain)
