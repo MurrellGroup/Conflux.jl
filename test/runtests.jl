@@ -1,6 +1,9 @@
 using Conflux
 using Test
 
+using Flux, CUDA
+CUDA.allowscalar(false)
+
 @testset "Conflux.jl" begin
-    # Write your tests here.
+
 end
