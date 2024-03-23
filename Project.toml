@@ -10,7 +10,7 @@ NCCL = "3fe64909-d7a1-4096-9b7d-7a0f12cf0f6b"
 cuDNN = "02a925ec-e4fe-4b08-9a7e-0d78e3d38ccd"
 
 [compat]
-CUDA = "5"
+CUDA = "4, 5"
 Flux = "0.14"
 NCCL = "0.1"
 cuDNN = "1"
