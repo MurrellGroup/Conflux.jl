@@ -20,14 +20,15 @@ end
 Base.size(replicas::Replicas) = size(replicas.replicas)
 Base.getindex(replicas::Replicas, i::Integer) = replicas.replicas[i]
 Base.getindex(replicas::Replicas{D}, device::D) where D = replicas[findfirst(==(device), replicas.devices)]
+Base.getindex(replicas::Replicas{D}, device) where D = replicas[flux_device(device)]
 
 Base.summary(replicas::Replicas) = "$(length(replicas)) replicas on devices [$(join(map(d -> d.deviceID, replicas.devices), ", "))]"
 Base.show(io::IO, replicas::Replicas) = print(io, summary(replicas))
 Base.show(io::IO, ::MIME"text/plain", replicas::Replicas) = show(io, replicas)
 
 """
-    replicate(original, devices=flux_devices(), f=identity)
+    replicate(original, devices=flux_cuda_devices(), f=identity)
 
 Replicate `original` across `devices`, optionally applying `f` to each replica (e.g. `deepcopy`).
 """
-replicate(original, devices=flux_devices(), f=identity) = Replicas([f(original) for _ in devices], flux_devices(devices))
+replicate(original, devices=flux_cuda_devices(), f=identity) = Replicas([f(original) for _ in devices], flux_devices(devices))

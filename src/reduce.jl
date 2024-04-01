@@ -79,7 +79,7 @@ julia> Flux.params.(models)
  Params([Float32[0.79638827;;], Float32[0.0]])
 ```
 """
-function allreduce!(op, xs::Vararg)
+function allreduce!(op, xs...)
     for arrays in zip(collect.(Flux.params.(xs))...)
         allreduce!(op, arrays...)
     end
