@@ -40,9 +40,8 @@ models = replicate(model)
 opt = Optimisers.Adam(0.001f0)
 
 # Instantiate the optimiser states on each device
-states = Conflux.withdevices() do (i, device)
-    Optimisers.setup(opt, model) |> device
-end
+state = Optimisers.setup(opt, model) |> models.devices[1]
+master_model = models[1]
 
 # A single batch, stored on CPU. Could use a more sophisticated mechanism to distribute multiple batches.
 X = rand(1, 16)
@@ -61,16 +60,9 @@ for epoch in 1:10
         ∇model
     end
 
-    # Average the gradients across devices
-    allreduce!(avg, ∇models...)
+    Conflux.reduce!(∇models...)
+    Optimisers.update!(master_model, state, ∇models[1])
 
-    # Update the models on each device
-    Conflux.withdevices() do (i, device)
-        Optimisers.update!(states[i], models[i], ∇models[i])
-    end
-
-    # Optionally synchronize the models and optimiser states, in case the parameters diverge
-    #allreduce!(avg, models...)
-    #allreduce!(avg, states...)
+    Conflux.synchronize!(models)
 end
 ```

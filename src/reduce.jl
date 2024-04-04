@@ -1,6 +1,6 @@
 export allreduce!, avg
 
-import NCCL: avg
+#=import NCCL: avg
 
 """
     allreduce!(op, arrays...)
@@ -84,4 +84,49 @@ function allreduce!(op, xs...)
         allreduce!(op, arrays...)
     end
     return nothing
+end=#
+
+"""
+Manually averages parameters with CUDA instead of using NCCL.
+"""
+function mul!(ps::Flux.Params, x::Real)
+    device!(first(collect(ps)))
+    for array in ps
+        array .*= x
+    end
+    return ps
+end
+
+function add!(dest_params::Flux.Params, src_params::Flux.Params; free=false)
+    dest_arrays = collect(dest_params)
+    dest_device = flux_device(first(dest_arrays))
+    src_arrays = transfer_to_device(collect(src_params), dest_device; free=free)
+    device!(dest_device)
+    CUDA.@sync for (dest_array, src_array) in zip(dest_arrays, src_arrays)
+        CUDA.@async begin
+            dest_array .+= src_array
+            CUDA.unsafe_free!(src_array)
+        end
+    end
+    return dest_params
+end
+
+function reducefirst!(replicas::Replicas; free = false)
+    params_vector = Flux.params.(replicas)
+    master_params = foldl((dest_params, src_params) -> add!(dest_params, src_params; free=free), params_vector)
+    mul!(master_params, 1/length(params_vector))
+    return replicas
+end
+
+using Base.Threads
+
+function synchronize!(replicas::Replicas)
+    params_vector = Flux.params.(replicas)
+    master_params = params_vector[1]
+    @sync for params in params_vector[2:end]
+        Threads.@spawn CUDA.@sync for (param, master_param) in zip(params, master_params)
+            CUDA.@async CUDA.CUDA.copyto!(param, master_param)
+        end
+    end
+    return replicas
 end
